@@ -2,6 +2,7 @@ import React from "react";
 import SearchBar from "../components/SearchBar";
 import { useNavigate } from "react-router-dom";
 import {Carousel} from "flowbite-react";
+import "../App.css";
 
 const HomePage = () => {
     const navigate = useNavigate();
@@ -11,15 +12,15 @@ const HomePage = () => {
     }
     return (
         <>
-        <main className="flex flex-col items-center mt-10 bg-white dark:bg-gray-800 p-5 rounded-lg shadow-lg">            
-            <div className="flex flex-col items-center mt-10">
+        <main className="flex flex-col items-center bg-white dark:bg-gray-800 p-5 shadow-lg min-h-screen">            
+            <div className="flex flex-col items-center mt-8">
                 <h1 className="mb-4 text-4xl font-extrabold leading-none tracking-tight text-gray-900 md:text-5xl lg:text-5xl dark:text-white">
                 Deine Quelle für Noten rund um –{" "}
-                    <span className="underline underline-offset-3 decoration-8 decoration-blue-400 dark:decoration-blue-600">
+                    <span className="underline underline-offset-3 decoration-8 decoration-blue-400 dark:decoration-blue-600 text-color-change">
                      Klassische Musik
                     </span>
                 </h1>
-                <p className="text-lg font-normal text-gray-500 lg:text-xl dark:text-gray-400">
+                <p className="text-xl font-normal text-gray-500 lg:text-xl dark:text-gray-400">
                 Freier Zugang zu einer umfassenden Sammlung klassischer Noten – entdecke Werke aller großen Komponisten.
                 </p>
                 <SearchBar onSearch={handleSearch} />

@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { useParams } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
 
 export default function WorkDetails() {
     const { pageid } = useParams();
@@ -7,6 +7,7 @@ export default function WorkDetails() {
     const [composerImage, setComposerImage] = useState([]);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
+    const navigate = useNavigate();
 
     useEffect(() => {
         async function fetchWorkInfo() {
@@ -46,7 +47,6 @@ export default function WorkDetails() {
                     title: page.title,
                     audioFiles: audioMatches,
                     pdfFiles: fileMatches,
-                    fullurl: page.fullurl || "",
                 });
             } catch (error) {
                 setError(
@@ -59,9 +59,21 @@ export default function WorkDetails() {
         fetchWorkInfo();
     }, [pageid]);
 
-    // Funktion für die entfernung der Dateiendung .mp3
-    const formatFileName = (fileName) => {
-        return fileName.replace(/_/, "").replace(".mp3", "");
+    // Funktion für den Zurück-button
+
+    const goBack = () => {
+        navigate(-1);
+    };
+
+    // Funktion für die entfernung der Dateiendungen wie mp3 oder pdf
+    const extractWorkName = (fileName) => {
+        const nameParts = fileName
+            .split("_")
+            .slice(1)
+            .join(" ")
+            .replace(/\.(mp3|pdf)$/, "")
+            .replace(/[_-]/g, " ");
+        return nameParts.replace(/_/g, " ");
     };
 
     if (loading) {
@@ -81,7 +93,7 @@ export default function WorkDetails() {
     }
 
     return (
-        <div className="max-w-3xl mx-auto p-6 bg-white shadow-lg rounded-lg">
+        <div className="max-w-5xl mx-auto p-6 bg-white shadow-lg rounded-lg">
             <h2 className="text-3xl font-bold text-gray-800 mb-4">
                 {workInfo.title}
             </h2>
@@ -95,10 +107,10 @@ export default function WorkDetails() {
                             key={index}
                             className="bg-gray-100 p-4 rounded-lg shadow-md hover:shadow-lg transition-shadow duration-200"
                         >
-                            <div className="flex items-center justify-between">
+                            <div className="flex flex-col items-start justify-between">
                                 <div className="flex-grow">
                                     <h4 className="text-lg font-semibold text-gray-800">
-                                        {formatFileName(file)}
+                                        {extractWorkName(file)}
                                     </h4>
                                     <p className="text-sm text-gray-600 truncate">
                                         {file}
@@ -132,10 +144,10 @@ export default function WorkDetails() {
                             key={index}
                             className="bg-gray-100 p-4 rounded-lg shadow-md hover:shadow-lg transition-shadow duration-200"
                         >
-                            <div className="flex items-center">
-                                <div className="flex-grow">
+                            <div className="flex items-center justify-between">
+                                <div className="truncate">
                                     <h4 className="text-lg font-semibold text-gray-800">
-                                        PDF-Datei {index + 1}
+                                        {extractWorkName(file)}
                                     </h4>
                                     <p className="text-sm text-gray-600 truncate">
                                         {file}
@@ -158,17 +170,12 @@ export default function WorkDetails() {
                     Keine PDF-Dateien verfügbar.
                 </p>
             )}
-
-            {workInfo.fullurl && (
-                <a
-                    href={workInfo.fullurl}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="inline-block px-4 py-2 bg-blue-500 text-white rounded-lg hover:bg-blue-700 transition"
-                >
-                    Mehr Details auf IMSLP
-                </a>
-            )}
+            <button
+                onClick={goBack}
+                className="mb-4 px-4 py-2 bg-gray-300 text-gray-800 rounded-lg hover:bg-gray-400 transition"
+            >
+                Zurück zur Werkliste
+            </button>
         </div>
     );
 }

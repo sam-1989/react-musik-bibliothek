@@ -23,11 +23,8 @@ export default function Composers() {
                     );
                 }
                 const data = await response.json();
-                
-                
+
                 setComposers(data.query.categorymembers);
-                console.log(categorymembers);
-                              
             } catch (error) {
                 setError(`Fehler beim Abrufen der Daten: ${error.message}`);
             } finally {
@@ -37,6 +34,12 @@ export default function Composers() {
 
         fetchComposers();
     }, [selectedLetter]);
+
+    // eine Scroll nach oben Funktion
+    const scrollToTop = () => {
+      window.scrollTo({top: 0, behavior: "smooth"})
+    }
+
 
     // Eine Liste der Buchstaben A–Z
     const letters = Array.from({ length: 26 }, (_, i) =>
@@ -53,8 +56,10 @@ export default function Composers() {
     }
 
     return (
-        <div className="p-16">
-            <h2 className="text-2xl text-center font-bold mb-4">Liste der Komponisten</h2>
+        <div className="p-16 bg-gray-100 dark:bg-gray-900 min-h-screen text-gray-900 dark:text-gray-200 transition-colors duration-300">
+            <h2 className="text-2xl text-center font-bold mb-4">
+                Liste der Komponisten
+            </h2>
 
             {/* Alphabetische Navigation */}
             <div className="flex flex-wrap justify-center py-4 mb-7">
@@ -64,8 +69,8 @@ export default function Composers() {
                         onClick={() => setSelectedLetter(letter)}
                         className={`px-4 py-2 m-2 rounded-full transition-colors duration-300 ${
                             selectedLetter === letter
-                                ? "bg-blue-600 text-white"
-                                : "bg-gray-200 hover:bg-blue-700 hover:text-white"
+                                ? "bg-blue-600 text-white dark:bg-blue-500"
+                                : "bg-gray-200 hover:bg-blue-700 hover:text-white dark:bg-gray-700 dark:hover:bg-blue-600 dark:text-gray-300"
                         }`}
                     >
                         {letter}
@@ -76,21 +81,24 @@ export default function Composers() {
             {/* Anzeige der Komponisten */}
             <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
                 {composers.map((composer) => (
-                    <li
+                    <div
                         key={composer.pageid}
-                        className="bg-white rounded-lg shadow-sm p-4 hover:shadow-xl transition-shadow duration-300"
+                        className="bg-white dark:bg-gray-800 rounded-lg shadow-sm p-4 hover:shadow-xl transition-shadow duration-300"
                     >
                         <Link
                             to={`/composer/${decodeURIComponent(
                                 composer.title.replace(/^Category:/, "").trim()
                             )}`}
-                            className="text-lg font-semibold text-blue-900 hover:underline"
+                            className="text-lg font-semibold text-blue-900 dark:text-blue-400 hover:underline"
                         >
                             {composer.title.replace(/^Category:/, "")}
                         </Link>
-                    </li>
+                    </div>
                 ))}
             </div>
+            <button onClick={scrollToTop} className="fixed bottom-8 right-8 bg-blue-500 text-white p-3 rounded-full shadow-lg hover:bg-blue-700 transition-colors">
+              Nach oben
+            </button>
         </div>
     );
 }
