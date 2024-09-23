@@ -1,28 +1,31 @@
 import React, { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import { GiViolin } from "react-icons/gi";
-import { FaBook } from "react-icons/fa";
 
 export default function Navbar() {
     const [isOpen, setIsOpen] = useState(false);
+    const location = useLocation();
+
+    // Prüfen ob ein Link aktiv ist
+    const isActive = (path) => location.pathname === path;
     return (
-        <nav className="bg-blue-100 shadow-md  w-full z-10">
+        <nav className="bg-blue-100 dark:bg-gray-800 shadow-md w-full z-10 transition-colors duration-300">
             <div className="container mx-auto px-4 py-3 flex items-center justify-between">
                 <Link
                     to="/"
-                    className="flex items-center text-2xl font-bold text-gray-800"
+                    className="flex items-center text-2xl font-bold text-gray-800 dark:text-white"
                 >
                     <div className="flex items-center mr-2 transform transition-transform duration-300 hover:scale-150">
-                        <GiViolin className="h-10 w-10 text-blue-500" />
+                        <GiViolin className="h-10 w-10 text-blue-500 dark:text-blue-400" />
                     </div>
-                    Musik Bibliothek
+                    Musik Bibliothek GitMan
                 </Link>
 
-                {/* Hamburger Meneu für mobile Geräte */}
+                {/* Hamburger Menü für mobile Geräte */}
                 <div className="md:hidden">
                     <button
                         onClick={() => setIsOpen(!isOpen)}
-                        className="text-gray-800 focus:outline-none"
+                        className="text-gray-800 dark:text-white focus:outline-none"
                     >
                         {isOpen ? (
                             // Schließen-Icon
@@ -66,40 +69,40 @@ export default function Navbar() {
                 >
                     <Link
                         to="/"
-                        className={`block mt-4 md:mt-0 text-lg transition-colors duration-300 ${
+                        className={`block mt-4 md:mt-0 text-lg font-medium transition-colors duration-300 ${
                             location.pathname === "/"
                                 ? "text-blue-600 font-semibold"
-                                : "text-gray-900"
+                                : "text-gray-800 dark:text-gray-200"
                         } hover:text-blue-600`}
                     >
                         Home
                     </Link>
                     <Link
                         to="/composers"
-                        className={`block mt-4 md:mt-0 text-lg transition-colors duration-300 ${
+                        className={`block mt-4 md:mt-0 text-lg font-medium transition-colors duration-300 ${
                             location.pathname === "/composers"
                                 ? "text-blue-600 font-semibold"
-                                : "text-gray-900"
+                                : "text-gray-800 dark:text-gray-200"
                         } hover:text-blue-600`}
                     >
                         Komponisten
                     </Link>
                     <Link
                         to="/about"
-                        className={`block mt-4 md:mt-0 text-lg transition-colors duration-300 ${
+                        className={`block mt-4 md:mt-0 text-lg font-medium transition-colors duration-300 ${
                             location.pathname === "/about"
                                 ? "text-blue-600 font-semibold"
-                                : "text-gray-900"
+                                : "text-gray-800 dark:text-gray-200"
                         } hover:text-blue-600`}
                     >
                         Über uns
                     </Link>
                     <Link
                         to="/contact"
-                        className={`block mt-4 md:mt-0 text-lg transition-colors duration-300 ${
+                        className={`block mt-4 md:mt-0 text-lg font-medium transition-colors duration-300 ${
                             location.pathname === "/contact"
                                 ? "text-blue-600 font-semibold"
-                                : "text-gray-900"
+                                : "text-gray-800 dark:text-gray-200"
                         } hover:text-blue-600`}
                     >
                         Kontakt

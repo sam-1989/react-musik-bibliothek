@@ -6,8 +6,7 @@ const initalState = {
     searchQuery: "",
     results: [],
     totalResults: 0,
-    currentPage: 0,
-    resultsPerPage: 10,
+    currentPage: 0, 
 };
 
 function reducer(state, action) {

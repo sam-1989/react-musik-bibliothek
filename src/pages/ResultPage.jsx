@@ -49,7 +49,7 @@ export default function ResultPage() {
         return <p>Upps, ein Fehler ist aufgetaucht: {error}</p>;
     }
 
-    if (!results || results.length === 0) {
+    if (!results) {
         return <p>Keine Ergebnisse wurden für "{query}" gefunden.</p>;
     }
 
@@ -69,7 +69,6 @@ export default function ResultPage() {
                             href={`https://imslp.org/wiki/${encodeURIComponent(
                                 result.title
                             )}`}
-                            target="_blank"
                             className="text-blue-1000 hover:bg-blue-300 text-xl font-sans cursor-pointer"
                         >
                             {result.title}
