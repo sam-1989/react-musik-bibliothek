@@ -9,17 +9,6 @@ html, body {
   min-height: 100vh;
 }
 
-main {
-  flex: 1;
-}
-
-footer {
-  background-color: #1f2937;
-  color: white;
-  padding: 10px;
-  text-align: center;
-}
-
   @keyframes spin {
     to {
       transform: rotate(360deg);
@@ -53,25 +42,3 @@ footer {
   border-top-color: #3490dc;
   animation: spin 1s infinite linear;
 }
-
-
-.search-bar-container {
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
-}
-
-.search-bar-container:focus-within {
-  transform: scale(1.05); 
-  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
-}
-
-/* Button Hover Effekt */
-.search-button {
-  transition: background-color 0.3s ease, transform 0.3s ease, box-shadow 0.3s ease;
-}
-
-.search-button:hover {
-  background-color: #2563eb; /* Dunkleres Blau */
-  transform: translateY(-3px); /* Anheben beim Hover */
-  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2); /* Schattierung beim Hover */
-}
-

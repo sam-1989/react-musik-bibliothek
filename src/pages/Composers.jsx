@@ -70,7 +70,7 @@ export default function Composers() {
                         className={`px-4 py-2 m-2 rounded-full transition-colors duration-300 ${
                             selectedLetter === letter
                                 ? "bg-blue-600 text-white dark:bg-blue-500"
-                                : "bg-gray-200 hover:bg-blue-700 hover:text-white dark:bg-gray-700 dark:hover:bg-blue-600 dark:text-gray-300"
+                                : "bg-gray-300 hover:bg-blue-700 hover:text-white dark:bg-gray-700 dark:hover:bg-blue-600 dark:text-gray-300"
                         }`}
                     >
                         {letter}
@@ -83,7 +83,7 @@ export default function Composers() {
                 {composers.map((composer) => (
                     <div
                         key={composer.pageid}
-                        className="bg-white dark:bg-gray-800 rounded-lg shadow-sm p-4 hover:shadow-xl transition-shadow duration-300"
+                        className="bg-white dark:bg-gray-800 rounded-lg border shadow-sm p-4 hover:shadow-xl transition-shadow duration-300"
                     >
                         <Link
                             to={`/composer/${decodeURIComponent(

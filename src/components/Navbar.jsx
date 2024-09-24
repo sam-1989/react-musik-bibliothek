@@ -6,10 +6,8 @@ export default function Navbar() {
     const [isOpen, setIsOpen] = useState(false);
     const location = useLocation();
 
-    // Prüfen ob ein Link aktiv ist
-    const isActive = (path) => location.pathname === path;
     return (
-        <nav className="bg-blue-100 dark:bg-gray-800 shadow-md w-full z-10 transition-colors duration-300">
+        <nav className="bg-blue-200 dark:bg-gray-800 shadow-md w-full z-10 transition-colors duration-300">
             <div className="container mx-auto px-4 py-3 flex items-center justify-between">
                 <Link
                     to="/"
@@ -69,7 +67,7 @@ export default function Navbar() {
                 >
                     <Link
                         to="/"
-                        className={`block mt-4 md:mt-0 text-lg font-medium transition-colors duration-300 ${
+                        className={`block mt-4 md:mt-0 text-lg font-medium transition-all duration-300 transform hover:scale-110 ${
                             location.pathname === "/"
                                 ? "text-blue-600 font-semibold"
                                 : "text-gray-800 dark:text-gray-200"
@@ -79,7 +77,7 @@ export default function Navbar() {
                     </Link>
                     <Link
                         to="/composers"
-                        className={`block mt-4 md:mt-0 text-lg font-medium transition-colors duration-300 ${
+                        className={`block mt-4 md:mt-0 text-lg font-medium transition-all duration-300 transform hover:scale-110 ${
                             location.pathname === "/composers"
                                 ? "text-blue-600 font-semibold"
                                 : "text-gray-800 dark:text-gray-200"
@@ -89,7 +87,7 @@ export default function Navbar() {
                     </Link>
                     <Link
                         to="/about"
-                        className={`block mt-4 md:mt-0 text-lg font-medium transition-colors duration-300 ${
+                        className={`block mt-4 md:mt-0 text-lg font-medium transition-all duration-300 transform hover:scale-110 ${
                             location.pathname === "/about"
                                 ? "text-blue-600 font-semibold"
                                 : "text-gray-800 dark:text-gray-200"
@@ -99,7 +97,7 @@ export default function Navbar() {
                     </Link>
                     <Link
                         to="/contact"
-                        className={`block mt-4 md:mt-0 text-lg font-medium transition-colors duration-300 ${
+                        className={`block mt-4 md:mt-0 text-lg font-medium transition-all duration-300 transform hover:scale-110 ${
                             location.pathname === "/contact"
                                 ? "text-blue-600 font-semibold"
                                 : "text-gray-800 dark:text-gray-200"
