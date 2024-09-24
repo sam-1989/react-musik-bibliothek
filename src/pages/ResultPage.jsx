@@ -58,36 +58,36 @@ export default function ResultPage() {
     }
 
     return (
-        <div className="max-w-7xl mx-auto">
-        <div className="min-h-screen font-sans text-center text-xl p-5 bg-gray-100 dark:bg-gray-900">
-            <h2 className="mb-8 text-3xl font-bold text-gray-800 dark:text-gray-100">
-                <strong>Suchergebnisse für "{query}":</strong>
-            </h2>
+        <div className="min-h-screen bg-gray-100 dark:bg-gray-900 transition-colors duration-300">
+            <div className="min-h-screen font-sans text-center text-xl p-5 bg-gray-100 dark:bg-gray-900">
+                <h2 className="mb-8 text-3xl font-bold text-gray-800 dark:text-gray-100">
+                    <strong>Suchergebnisse für "{query}":</strong>
+                </h2>
 
-            <ul className="grid gap-6 grid-cols-1 md:grid-cols-2 lg:grid-cols-3">
-                {results.map((result, index) => (
-                    <a
-                        key={index}
-                        href={`https://imslp.org/wiki/${encodeURIComponent(
-                            result.title
-                        )}`}
-                        className="block"
-                    >
-                        <li className="bg-white dark:bg-gray-700 rounded-lg shadow-lg p-6 transition-transform transform hover:scale-105 cursor-pointer">
-                            <h3 className="text-blue-600 dark:text-blue-200 text-xl font-sans">
-                                {result.title}
-                            </h3>
-                        </li>
-                    </a>
-                ))}
-            </ul>
-            <button
-                onClick={scrollToTop}
-                className="fixed bottom-8 right-8 bg-blue-500 text-white p-3 rounded-full shadow-lg hover:bg-blue-700 transition-colors"
-            >
-                Nach oben
-            </button>
-        </div>
+                <ul className="grid gap-6 grid-cols-1 md:grid-cols-2 lg:grid-cols-3">
+                    {results.map((result, index) => (
+                        <a
+                            key={index}
+                            href={`https://imslp.org/wiki/${encodeURIComponent(
+                                result.title
+                            )}`}
+                            className="block"
+                        >
+                            <li className="bg-white dark:bg-gray-700 rounded-lg shadow-lg p-6 transition-transform transform hover:scale-105 cursor-pointer">
+                                <h3 className="text-blue-800 dark:text-blue-200 text-xl font-sans">
+                                    {result.title}
+                                </h3>
+                            </li>
+                        </a>
+                    ))}
+                </ul>
+                <button
+                    onClick={scrollToTop}
+                    className="fixed bottom-8 right-8 bg-blue-500 text-white p-3 rounded-full shadow-lg hover:bg-blue-700 transition-colors"
+                >
+                    Nach oben
+                </button>
+            </div>
         </div>
     );
 }
