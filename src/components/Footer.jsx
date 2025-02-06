@@ -7,7 +7,7 @@ export default function Footer() {
                 <span className="dark:text-gray-200">
                    {" "}
                     <a href="#" className="hover:underline text-blue-600 dark:text-blue-400">
-                       - Musik-Bibliothek GitMan -
+                    Musik-Bibliothek GitMan.
                     </a>
                      {" "} All Rights Reserved. &copy; {new Date().getFullYear()}
                 </span>
