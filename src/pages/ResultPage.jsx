@@ -85,9 +85,9 @@ export default function ResultPage() {
         </h2>
 
         <ul className="grid gap-6 grid-cols-1 sm:grid-cols-2 lg:grid-cols-3">
-          {visibleResults.map((result, index) => (
+          {visibleResults.map((result) => (
             <li
-              key={index}
+              key={result.pageid || result.title}
               className="bg-white dark:bg-gray-700 rounded-lg shadow hover:shadow-lg transition-shadow duration-200"
             >
               <a

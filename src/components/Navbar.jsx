@@ -1,10 +1,11 @@
-import React, { useState } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { Link, useLocation } from "react-router-dom";
 import { GiViolin } from "react-icons/gi";
 
 export default function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
   const location = useLocation();
+  const navRef = useRef(null);
 
   // Define your navigation items in an array for easier management
   const navItems = [
@@ -14,8 +15,32 @@ export default function Navbar() {
     { name: "Kontakt", path: "/contact" },
   ];
 
+  // Close mobile menu on outside click
+  useEffect(() => {
+    const handleClickOutside = (event) => {
+      if (navRef.current && !navRef.current.contains(event.target)) {
+        setIsOpen(false);
+      }
+    };
+
+    if (isOpen) {
+      document.addEventListener('mousedown', handleClickOutside);
+      document.addEventListener('touchstart', handleClickOutside);
+    }
+
+    return () => {
+      document.removeEventListener('mousedown', handleClickOutside);
+      document.removeEventListener('touchstart', handleClickOutside);
+    };
+  }, [isOpen]);
+
+  // Close mobile menu on route change
+  useEffect(() => {
+    setIsOpen(false);
+  }, [location.pathname]);
+
   return (
-    <nav className="bg-blue-200 dark:bg-gray-800 shadow-md w-full z-10 transition-colors duration-300">
+    <nav ref={navRef} className="bg-blue-200 dark:bg-gray-800 shadow-md w-full z-10 transition-colors duration-300">
       <div className="container mx-auto px-4 py-3 flex items-center justify-between">
         <Link
           to="/"
@@ -79,7 +104,7 @@ export default function Navbar() {
             <Link
               key={path}
               to={path}
-              className={`block mt-4 md:mt-0 text-lg font-medium transition-transform duration-300 transform hover:scale-110 ${
+              className={`block mt-4 md:mt-0 text-lg font-medium transition-transform duration-300 transform hover:scale-110 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 rounded px-2 py-1 ${
                 location.pathname === path
                   ? "text-blue-600 font-semibold"
                   : "text-gray-800 dark:text-gray-200 hover:text-blue-600"
