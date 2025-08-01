@@ -11,14 +11,25 @@ export default function WorkDetails() {
   useEffect(() => {
     async function fetchWorkInfo() {
       setLoading(true);
+      setError(null);
       try {
         const apiUrl = `https://corsproxy.io/?https://imslp.org/api.php?action=query&prop=info|revisions&pageids=${pageid}&rvprop=content&format=json&origin=*`;
         const response = await fetch(apiUrl);
+        
+        if (!response.ok) {
+          throw new Error(`HTTP Error: ${response.status} - ${response.statusText}`);
+        }
+        
         const data = await response.json();
+        
+        if (!data.query || !data.query.pages) {
+          throw new Error("Ungültige API-Antwort erhalten.");
+        }
+        
         const page = data.query.pages[pageid];
 
-        if (!page) {
-          throw new Error("Keine Werkdetails gefunden.");
+        if (!page || page.missing) {
+          throw new Error("Die angeforderte Seite wurde nicht gefunden.");
         }
 
         // Extract content from the revision if available.
@@ -45,14 +56,25 @@ export default function WorkDetails() {
           pdfFiles: fileMatches,
         });
       } catch (error) {
-        setError(
-          `Die Werkdetails konnten nicht abgerufen werden: ${error.message}`
-        );
+        console.error('Error fetching work details:', error);
+        if (error.name === 'TypeError' && error.message.includes('fetch')) {
+          setError('Netzwerkfehler: Bitte überprüfen Sie Ihre Internetverbindung.');
+        } else if (error.message.includes('HTTP Error')) {
+          setError(`Server-Fehler: ${error.message}`);
+        } else {
+          setError(`Die Werkdetails konnten nicht abgerufen werden: ${error.message}`);
+        }
       } finally {
         setLoading(false);
       }
     }
-    fetchWorkInfo();
+    
+    if (pageid) {
+      fetchWorkInfo();
+    } else {
+      setError('Ungültige Seiten-ID.');
+      setLoading(false);
+    }
   }, [pageid]);
 
   // Function to navigate back
